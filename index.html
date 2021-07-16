@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<style>
+		@keyframes arrow{
+			0%{
+				transform: translateY(0px);
+			}
+			100%{
+				transform: translateY(-20px);
+			}
+		}
+		*{
+			margin: 0;
+			padding: 0;
+		}
+
+		body{
+			transition: all 0.7s;
+
+		}
+
+		.fa-arrow-alt-circle-down{
+			font-size: 100px;
+			animation: arrow 0.5s infinite alternate;
+			animation-fill-mode: all;
+			transition: all 0.7s;
+			color: #15AABF;
+		}
+
+
+		#randomColor_div{
+			width: 400px;
+			height: 400px;
+			background-color: white;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+			box-sizing: border-box;
+			transition: all 0.7s;
+		}
+
+		@media screen and (max-width: 410px){
+			#randomColor_div{
+				width: 90%;
+				height: 90%;
+			}
+			 #divBtn{
+				width: 90%;
+			}
+			#randomColor_generator{
+				width: 90%;
+				height: 90%;
+			}
+			
+		}
+
+		#copy{
+			cursor: pointer;
+			padding: 10px 20px;
+			background-color: #15AABF;
+			color: white;
+			width: 150px;
+			text-transform: uppercase;
+			font-style: sans-serif;
+			font-size: 15px;
+			border-top: 2px solid #118899;
+			border-left: 2px solid #118899;
+			border-right: 2px solid #118899;
+			border-bottom: 3px solid  #118899;
+			border-radius:5px;
+			font-weight: 700;
+			margin-left: 5px;
+			position: relative;
+		}
+
+		#copy:active{
+			border-bottom: 2px solid #118899;
+			border-left: 2px solid #118899;
+			border-right: 2px solid #118899;
+			border-top: 3px solid  #118899;
+		}
+
+
+		#btnGenerator{
+			cursor: pointer;
+			padding: 10px 30px;
+			background-color: #15AABF;
+			color: white;
+			text-transform: uppercase;
+			font-style: sans-serif;
+			font-size: 15px;
+			border-top: 2px solid #118899;
+			border-left: 2px solid #118899;
+			border-right: 2px solid #118899;
+			border-bottom: 3px solid  #118899;
+			border-radius:5px;
+			font-weight: 700;
+			width: 150px;
+		}
+
+		#divBtn{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+		}
+
+
+
+		#divBtn i{
+			margin-left:5px;
+		}
+
+		#input1{
+			position: absolute;
+			display: block;
+			left: -600%;
+		}
+
+		#btnGenerator:active{
+			border-bottom: 2px solid #118899;
+			border-left: 2px solid #118899;
+			border-right: 2px solid #118899;
+			border-top: 3px solid  #118899;
+
+		}
+
+
+		#randomColor_generator{
+
+			width: 250px;
+			height: 250px;
+			border-radius: 50%;
+			font-family: sans-serif;
+			font-weight: 500;
+			text-transform: uppercase;
+			display: flex;
+			flex-direction: column;
+			align-items:center;
+			justify-content: center;
+			transition: all 0.7s;
+		}
+	</style>
+	<script src="clipboard.js-master/dist/clipboard.min.js"></script>
+	<script src="https://kit.fontawesome.com/e1f28f3225.js" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(()=>{
+			function copyChange () {
+					$('#change').html('copiar')
+			}
+				
+			
+			new ClipboardJS('.btn')
+			
+			const startGenerator = document.querySelector('#btnGenerator')
+			
+			startGenerator.addEventListener('click', setRandomColor)
+			function setRandomColor() {
+				
+
+				$('#icon').remove()
+				let randomColor = "#"+((1<<24)*Math.random()|0).toString(16)
+				$('#randomColor_generator').css('background-color', randomColor)
+				  $('#body').css({
+				  	'background': randomColor
+				  })
+
+
+				  $('#input1').val(randomColor)
+				  copyChange()
+
+
+
+				 
+			}
+
+			document.querySelector('#copy').addEventListener('click', () =>{
+				$('#change').html('copiado!')
+			})
+		})
+	</script>
+	<title>Gerador de cor</title>
+</head>
+<body id="body">
+	<div id="randomColor_div">
+
+		<div id="randomColor_generator">
+			
+			<i id="icon" class="far fa-arrow-alt-circle-down"></i>
+		</div>
+		<div id="divBtn">
+			
+			<input  id="input1" type="text" name="" >
+			<button id="btnGenerator" type="button">Gerar</button>
+			<button class="btn" data-clipboard-target="#input1" id="copy" title="Copiar Cor" type="button"><span id="change">Copiar</span><i class="far fa-clipboard"></i>
+			</button>
+			
+			<!-- Target -->
+
+
+		</div>
+	</div>
+</body>
+</html>
